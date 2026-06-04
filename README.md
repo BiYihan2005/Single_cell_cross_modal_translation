@@ -19,7 +19,6 @@
 P_{\mathrm{test}} C
 +
 \alpha \cdot g_{\theta}(Z_{\mathrm{test}})
-$$
 
 其中：
 
