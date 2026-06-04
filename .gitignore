@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store
+__MACOSX/
+._*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Matplotlib cache
+.mplconfig/
+
+# 数据与输出：真实数据和模型不要上传到公开仓库
+data/raw/*
+!data/raw/.gitkeep
+outputs/*
+!outputs/.gitkeep
+models/*
+!models/.gitkeep
+
+# 大文件和私有文件
+*.h5ad
+*.h5
+*.pt
+*.pth
+*.joblib
+*.pkl
+*.zip
+*.docx
