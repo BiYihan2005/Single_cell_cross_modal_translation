@@ -10,7 +10,7 @@ X^{\mathrm{met}}_i
 Y^{\mathrm{rna}}_i
 ```
 
-其中，X^{\mathrm{met}}_i 表示第 $i$ 个细胞的甲基化特征，Y^{\mathrm{rna}}_i 表示第 $i$ 个细胞对应的 RNA 表达向量。
+其中，$X_i^{\mathrm{met}}$ 表示第 $i$ 个细胞的甲基化特征，$Y^{\mathrm{rna}}_i$ 表示第 $i$ 个细胞对应的 RNA 表达向量。
 
 该任务的难点主要包括：
 
