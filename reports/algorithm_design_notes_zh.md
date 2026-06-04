@@ -46,7 +46,7 @@ predict_proba
 P_{\mathrm{test}} C
 ```
 
-其中，\$P_{\mathrm{test}}$/ 是测试集类型概率矩阵，$C$ 是类型原型表达矩阵。
+其中，$P_{\mathrm{test}}$ 是测试集类型概率矩阵，$C$ 是类型原型表达矩阵。
 
 ### 2.4 残差学习
 
