@@ -40,25 +40,33 @@ predict_proba
 
 按 `MajorType` 分组计算训练集中每种类型的平均 RNA 表达，即“原型表达”。测试集初步预测为：
 
-\[
-\widehat{Y}^{proto}_{test}=P_{test}C
-\]
+```math
+\widehat{Y}^{\mathrm{proto}}_{\mathrm{test}}
+=
+P_{\mathrm{test}} C
+```
 
-其中 \(P_{test}\) 是测试集类型概率矩阵，\(C\) 是类型原型表达矩阵。
+其中，$P_{\mathrm{test}}$ 是测试集类型概率矩阵，$C$ 是类型原型表达矩阵。
 
 ### 2.4 残差学习
 
 训练集残差定义为：
 
-\[
-R_{train}=Y_{train}-\widehat{Y}^{proto}_{train}
-\]
+```math
+R_{\mathrm{train}}
+=
+Y_{\mathrm{train}}
+-
+\widehat{Y}^{\mathrm{proto}}_{\mathrm{train}}
+```
 
 然后训练残差神经网络学习：
 
-\[
-g_{\theta}(Z_{train}) \approx R_{train}
-\]
+```math
+g_{\theta}(Z_{\mathrm{train}})
+\approx
+R_{\mathrm{train}}
+```
 
 网络使用残差块和 BatchNorm，以增强深层网络的训练稳定性。
 
@@ -66,17 +74,23 @@ g_{\theta}(Z_{train}) \approx R_{train}
 
 最终预测为：
 
-\[
-\widehat{Y}_{test}
+```math
+\widehat{Y}_{\mathrm{test}}
 =
-\widehat{Y}^{proto}_{test}
+\widehat{Y}^{\mathrm{proto}}_{\mathrm{test}}
 +
-\alpha \cdot g_{\theta}(Z_{test})
-\]
+\alpha \cdot g_{\theta}(Z_{\mathrm{test}})
+```
 
-其中 \(\alpha\) 是残差权重，默认值为 0.4。使用小于 1 的权重是一种保守策略，可以减少残差噪声对测试集预测的放大。
+其中，$\alpha$ 是残差权重，默认值为 0.4。使用小于 1 的权重是一种保守策略，可以减少残差噪声对测试集预测的放大。
 
-最后将预测值中的负数截断为 0，以符合 RNA 表达非负的基本约束。
+最后将预测值中的负数截断为 0，以符合 RNA 表达非负的基本约束：
+
+```math
+\widehat{Y}_{\mathrm{test}}
+=
+\max(\widehat{Y}_{\mathrm{test}}, 0)
+```
 
 ## 3. 方案优势
 
@@ -88,9 +102,9 @@ g_{\theta}(Z_{train}) \approx R_{train}
 
 每个模块职责清晰：
 
-- 原型表达捕捉细胞类型主导的共性表达；
-- 残差网络捕捉细胞内部状态和染色质状态差异；
-- 残差权重控制模型复杂度和噪声放大。
+* 原型表达捕捉细胞类型主导的共性表达；
+* 残差网络捕捉细胞内部状态和染色质状态差异；
+* 残差权重控制模型复杂度和噪声放大。
 
 ## 4. 局限性
 
@@ -101,8 +115,8 @@ g_{\theta}(Z_{train}) \approx R_{train}
 
 ## 5. 后续改进方向
 
-- 引入自编码器或对比学习构建共享潜空间；
-- 使用图神经网络建模细胞邻域关系；
-- 对不同基因分组建模；
-- 使用更严格的验证集划分评估泛化能力；
-- 加入更细粒度的细胞类型或发育阶段信息。
+* 引入自编码器或对比学习构建共享潜空间；
+* 使用图神经网络建模细胞邻域关系；
+* 对不同基因分组建模；
+* 使用更严格的验证集划分评估泛化能力；
+* 加入更细粒度的细胞类型或发育阶段信息。
