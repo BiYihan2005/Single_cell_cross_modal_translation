@@ -16,10 +16,6 @@
 
 本项目的核心预测公式为：
 
-$$
-\widehat{Y}_{\mathrm{test}}
-===========================
-
 P_{\mathrm{test}} C
 +
 \alpha \cdot g_{\theta}(Z_{\mathrm{test}})
