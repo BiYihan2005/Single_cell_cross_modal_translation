@@ -29,14 +29,16 @@ The pipeline follows a prototype-residual design:
 The final prediction is:
 
 $$
+\begin{aligned}
 \widehat{Y}_{\mathrm{test}}
-=
+&=
 P_{\mathrm{test}} C
 +
-\alpha g_{\theta}(Z_{\mathrm{test}}),
+\alpha g_{\theta}\!\left(Z_{\mathrm{test}}\right).
+\end{aligned}
 $$
 
-where $$P_{\mathrm{test}}$$ is the soft cell-type probability matrix, $$C$$ is the RNA prototype matrix, $$Z_{\mathrm{test}}$$ is the PCA representation of methylation features, $$g_{\theta}$$ is the residual neural network, and $$\alpha$$ controls the residual correction strength.
+where $P_{\mathrm{test}}$ is the soft cell-type probability matrix, $C$ is the RNA prototype matrix, $Z_{\mathrm{test}}$ is the PCA representation of methylation features, $g_{\theta}$ is the residual neural network, and $\alpha$ controls the residual correction strength.
 
 ## Why This Design Is Useful
 
