@@ -52,11 +52,13 @@ The label column can be changed with:
 The training RNA and methylation matrices are aligned by shared cell identifiers:
 
 $$
+\begin{aligned}
 \mathcal{I}_{\mathrm{train}}
-=
-\mathrm{obs}(X^{\mathrm{met}}_{\mathrm{train}})
+&=
+\mathrm{obs}\!\left(X^{\mathrm{met}}_{\mathrm{train}}\right)
 \cap
-\mathrm{obs}(Y^{\mathrm{rna}}_{\mathrm{train}}).
+\mathrm{obs}\!\left(Y^{\mathrm{rna}}_{\mathrm{train}}\right).
+\end{aligned}
 $$
 
 Only cells in this intersection are used for supervised training. Methylation features are also aligned between training and test methylation matrices by shared `var_names`.
