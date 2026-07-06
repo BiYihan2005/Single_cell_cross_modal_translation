@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+__MACOSX/
+._*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.env
+
+# Data and generated artifacts
+data/raw/
+data/synthetic/
+outputs/
+models/
+*.h5ad
+*.h5
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.joblib
+*.pkl
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Archives and office files
+*.zip
+*.docx
+*.pdf
