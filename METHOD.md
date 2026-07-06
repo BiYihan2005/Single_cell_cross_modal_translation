@@ -76,13 +76,15 @@ Soft probabilities are preferred over hard labels because single-cell states can
 
 ## 5. RNA Prototype Construction
 
-For each major cell type $$k$$, define the set of training cells belonging to that type as $$S_k$$. The RNA prototype for type $$k$$ is:
+For each major cell type $k$, define the set of training cells belonging to that type as $S_k$. The RNA prototype for type $k$ is:
 
 $$
+\begin{aligned}
 C_k
-=
+&=
 \frac{1}{|S_k|}
-\sum_{i \in S_k} Y_i.
+\sum_{i \in S_k} Y_i .
+\end{aligned}
 $$
 
 Stacking all prototypes gives:
@@ -91,12 +93,14 @@ $$
 C \in \mathbb{R}^{K \times d_r}.
 $$
 
-For a cell with soft type probability vector $$P_i$$, the prototype-based RNA prediction is:
+For a cell with soft type probability vector $P_i$, the prototype-based RNA prediction is:
 
 $$
+\begin{aligned}
 \widehat{Y}^{\mathrm{proto}}_i
-=
-P_i C.
+&=
+P_i C .
+\end{aligned}
 $$
 
 This term captures the dominant transcriptional pattern explained by cell identity.
@@ -106,43 +110,55 @@ This term captures the dominant transcriptional pattern explained by cell identi
 The prototype term is robust but cannot fully explain intra-type heterogeneity. Therefore, the training residual is defined as:
 
 $$
+\begin{aligned}
 R_i
-=
+&=
 Y_i
 -
-\widehat{Y}^{\mathrm{proto}}_i.
+\widehat{Y}^{\mathrm{proto}}_i .
+\end{aligned}
 $$
 
-A neural network $$g_{\theta}$$ is trained to predict this residual from methylation PCA features:
+A neural network $g_{\theta}$ is trained to predict this residual from methylation PCA features:
 
 $$
+\begin{aligned}
 g_{\theta}(Z_i)
-\approx
-R_i.
+&\approx
+R_i .
+\end{aligned}
 $$
 
 The residual network is a multilayer perceptron with residual blocks. A residual block has the general form:
 
 $$
+\begin{aligned}
 h_{\ell+1}
-=
-\sigma\left(h_{\ell} + F_{\ell}(h_{\ell})\right),
+&=
+\sigma\left(
+h_{\ell}
++
+F_{\ell}(h_{\ell})
+\right) .
+\end{aligned}
 $$
 
-where $$F_{\ell}$$ is a small feed-forward transformation and $$\sigma$$ is a nonlinear activation function. Residual connections make optimization more stable and match the modeling goal of learning corrections rather than reconstructing expression from scratch.
+where $F_{\ell}$ is a small feed-forward transformation and $\sigma$ is a nonlinear activation function. Residual connections make optimization more stable and match the modeling goal of learning corrections rather than reconstructing expression from scratch.
 
 ## 7. Training Objective
 
 The residual network is trained with mean squared error:
 
 $$
+\begin{aligned}
 \mathcal{L}_{\mathrm{res}}
-=
+&=
 \frac{1}{n}
 \sum_{i=1}^{n}
 \left\|
- g_{\theta}(Z_i) - R_i
-\right\|_2^2.
+g_{\theta}(Z_i) - R_i
+\right\|_2^2 .
+\end{aligned}
 $$
 
 Early stopping is applied using a validation split to reduce overfitting. The model checkpoint with the best validation loss is used for test prediction.
@@ -152,21 +168,27 @@ Early stopping is applied using a validation split to reduce overfitting. The mo
 For test cells, the final prediction is:
 
 $$
+\begin{aligned}
 \widehat{Y}_{\mathrm{test}}
-=
+&=
 P_{\mathrm{test}}C
 +
-\alpha g_{\theta}(Z_{\mathrm{test}}),
+\alpha g_{\theta}(Z_{\mathrm{test}}) .
+\end{aligned}
 $$
 
-where $$\alpha$$ controls the strength of residual correction.
+where $\alpha$ controls the strength of residual correction.
 
 Because RNA expression is non-negative, the final prediction can be clipped by:
 
 $$
+\begin{aligned}
 \widehat{Y}_{\mathrm{test}}
-\leftarrow
-\max(\widehat{Y}_{\mathrm{test}}, 0).
+&\leftarrow
+\max\left(
+\widehat{Y}_{\mathrm{test}}, 0
+\right) .
+\end{aligned}
 $$
 
 ## 9. Interpretation
